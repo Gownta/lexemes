@@ -1,2 +1,3 @@
 # lexemes
-Word, characters, data
+
+Words, characters, data
