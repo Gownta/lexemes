@@ -1,0 +1,69 @@
+#!/usr/bin/python3
+
+import unicodedata
+
+ControlNames = {
+    0x00: "NULL",
+    0x01: "START OF HEADING",
+    0x02: "START OF TEXT",
+    0x03: "END OF TEXT",
+    0x04: "END OF TRANSMISSION",
+    0x05: "ENQUIRY",
+    0x06: "ACKNOWLEDGE",
+    0x07: "BELL",
+    0x08: "BACKSPACE",
+    0x09: "HORIZONTAL TAB",
+    0x0A: "LINE FEED",
+    0x0B: "VERTICAL TAB",
+    0x0C: "FORM FEED",
+    0x0D: "CARRIAGE RETURN",
+    0x0E: "SHIFT OUT",
+    0x0F: "SHIFT IN",
+    0x10: "DATA LINK ESCAPE",
+    0x11: "DEVICE CONTROL 1",
+    0x12: "DEVICE CONTROL 2",
+    0x13: "DEVICE CONTROL 3",
+    0x14: "DEVICE CONTROL 4",
+    0x15: "NEGATIVE ACKNOWLEDGE",
+    0x16: "SYNCHRONOUS IDLE",
+    0x17: "END OF TRANSMISSION BLOCK",
+    0x18: "CANCEL",
+    0x19: "END OF MEDIUM",
+    0x1A: "SUBSTITUTE",
+    0x1B: "ESCAPE",
+    0x1C: "FILE SEPARATOR",
+    0x1D: "GROUP SEPARATOR",
+    0x1E: "RECORD SEPARATOR",
+    0x1F: "UNIT SEPARATOR",
+    0x20: "SPACE",
+    0x7F: "DELETE",
+}
+
+prints = [f"{i:3} 0x{i:0=2x} {ControlNames.get(i, chr(i))}" for i in range(128)]
+header = "INT HEX  CHAR"
+ncols = 4
+
+sz = int((len(prints) + ncols - 1) // ncols)
+cols = [prints[sz*i:sz*(i+1)] for i in range(ncols)]
+maxszs = [max(len(header), max(len(s) for s in col)) for col in cols]
+
+
+def mkrow(i, joiner=" | "):
+    parts = []
+    for j, maxsz in enumerate(maxszs):
+        col = cols[j]
+        if i < len(col):
+            entry = col[i]
+        else:
+            entry = ""
+        parts.append(f"{entry:<{maxsz}}")
+    return joiner.join(parts)
+
+
+headers = " | ".join(f"{header:<{maxsz}}" for maxsz in maxszs)
+bar = "-+-".join("-" * maxsz for maxsz in maxszs)
+print(headers)
+print(bar)
+for i in range(len(cols[0])):
+    print(mkrow(i))
+
