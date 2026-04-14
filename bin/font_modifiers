@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+
+text = "Lorem ipsum"
+
+modifiers = [
+    ("Normal",         "",      "",      "(none)"),
+    ("Bold",           "\033[1m", "\033[22m", "ESC[1m"),
+    ("Dim",            "\033[2m", "\033[22m", "ESC[2m"),
+    ("Italic",         "\033[3m", "\033[23m", "ESC[3m"),
+    ("Underline",      "\033[4m", "\033[24m", "ESC[4m"),
+    ("Blinking",       "\033[5m", "\033[25m", "ESC[5m"),
+    ("Inverse",        "\033[7m", "\033[27m", "ESC[7m"),
+    ("Hidden",         "\033[8m", "\033[28m", "ESC[8m"),
+    ("Strikethrough",  "\033[9m", "\033[29m", "ESC[9m"),
+    ("Bold Italic",    "\033[1;3m", "\033[22;23m", "ESC[1;3m"),
+    ("Bold Underline", "\033[1;4m", "\033[22;24m", "ESC[1;4m"),
+    ("Bold Strikethrough", "\033[1;9m", "\033[22;29m", "ESC[1;9m"),
+]
+
+name_width = max(len(m[0]) for m in modifiers)
+code_width = max(len(m[3]) for m in modifiers)
+
+for name, on, off, code in modifiers:
+    print(f"  {name:<{name_width}}  {code:<{code_width}}  {on}{text}{off}")
