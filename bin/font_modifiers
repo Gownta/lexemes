@@ -15,6 +15,7 @@ modifiers = [
     ("Bold Italic",    "\033[1;3m", "\033[22;23m", "ESC[1;3m"),
     ("Bold Underline", "\033[1;4m", "\033[22;24m", "ESC[1;4m"),
     ("Bold Strikethrough", "\033[1;9m", "\033[22;29m", "ESC[1;9m"),
+    ("Link",               "\033]8;;https://www.google.com\033\\", "\033]8;;\033\\", "OSC 8"),
 ]
 
 name_width = max(len(m[0]) for m in modifiers)
